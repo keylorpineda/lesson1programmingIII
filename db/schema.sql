@@ -1,0 +1,14 @@
+-- Estructura mínima
+CREATE TABLE IF NOT EXISTS clientes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nombre TEXT NOT NULL,
+  email TEXT
+);
+
+CREATE TABLE IF NOT EXISTS compras (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  cliente_id INTEGER NOT NULL,
+  fecha TEXT NOT NULL,
+  total REAL NOT NULL,
+  FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);

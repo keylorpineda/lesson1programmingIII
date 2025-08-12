@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  api-service:
+    build: ./backend
+    container_name: api-service
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - sqlite_data:/data
+      - ./db:/db:ro
+    depends_on:
+      - db-service
+
+  # Nota: SQLite no es un servidor; este servicio representa el volumen persistente.
+  db-service:
+    image: busybox
+    container_name: db-service
+    command: sh -c "mkdir -p /data && tail -f /dev/null"
+    volumes:
+      - sqlite_data:/data
+
+volumes:
+  sqlite_data:
